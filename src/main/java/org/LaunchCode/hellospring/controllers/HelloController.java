@@ -1,6 +1,7 @@
 package org.LaunchCode.hellospring.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -8,18 +9,24 @@ public class HelloController {
 
     // responds to /hello?name=
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
-    @ResponseBody
-    public String helloWithQueryParam(@RequestParam String name){
+    public String helloWithQueryParam(@RequestParam String name, Model model){
 
-        return "Hello, " + name + "!";
+        //variable name needs to match up with variable name referenced in template
+        String theGreeting = "Hello, " + name + "!";
+        model.addAttribute("greeting", theGreeting);
+
+        return "hello";
     }
 
     // responds to /hello/name
     @GetMapping("hello/{name}")
-    @ResponseBody
-    public String helloWithPathParam(@PathVariable String name){
+    public String helloWithPathParam(@PathVariable String name, Model model){
 
-        return "Hello, " + name + "!";
+        //can use the same template for same view
+        String theGreeting = "Hello, " + name + "!";
+        model.addAttribute("greeting", theGreeting);
+
+        return "hello";
     }
 
     // responds to /form
