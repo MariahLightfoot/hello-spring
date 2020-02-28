@@ -8,22 +8,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("hello")
 public class HelloController {
 
-    // Handles requests at path /hello
-    // Commented out because it was interfering. Too many requests going to path /hello
-//    @GetMapping("hello")
-//    @ResponseBody
-//    public String hello(){
-//        return "Hello, Spring!";
-//    }
-
-    // lives at /hello/goodbye
-    @GetMapping("goodbye")
-    public String goodbye(){
-        return "Goodbye, Spring!";
-    }
-//
-//     Handles requests of the form /hello?name=LaunchCode
-//     Commented out due to interference in paths
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
     public String helloWithQueryParam(@RequestParam String name){
         return "Hello, " + name + "!";
