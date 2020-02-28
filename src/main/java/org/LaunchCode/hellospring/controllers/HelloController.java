@@ -4,41 +4,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@ResponseBody
-@RequestMapping("hello")
 public class HelloController {
 
+    // responds to /hello?name=
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    @ResponseBody
     public String helloWithQueryParam(@RequestParam String name){
+
         return "Hello, " + name + "!";
     }
 
-    // Handles requests of the form /hello/LaunchCode
-    @GetMapping("{name}")
+    // responds to /hello/name
+    @GetMapping("hello/{name}")
+    @ResponseBody
     public String helloWithPathParam(@PathVariable String name){
+
         return "Hello, " + name + "!";
     }
 
-    // lives at /hello/form
+    // responds to /form
     @GetMapping("form")
     public String helloForm(){
-        return "<html>" +
-                "<body>" +
-                "<form action='response' method='post'>" + //submit a request to /hello
-                "<input type='text' name='name'>" +
-                "<select name='language'>" +
-                "<option>English</option>" +
-                "<option>Spanish</option>" +
-                "<option>French</option>" +
-                "<option>Russian</option>" +
-                "<option>German</option>" +
-                "<input type='submit' value='Greet me!'>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
+        return "form";
     }
 
+    // posts to /response
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "response")
+    @ResponseBody
     public static String createMessage(@RequestParam String name, String language){
         if(language.equals("English")){
             return "Hello, " + name + "!";
